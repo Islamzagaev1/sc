@@ -10,21 +10,21 @@ jobs:
       contents: read
 
     steps:
-      - - name: Configure Android SDK
-  run: 
-    echo "ANDROID_HOME=$ANDROID_HOME"
-    echo "sdk.dir=$ANDROID_HOME" > local.properties
-    "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --version
+      - name: Download SoundCloud source
+        uses: actions/checkout@v4
         with:
           repository: Islamzagaev1/SoundCloud-Android
+
       - name: Set up Java 17
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
+      - name: Configure Android SDK
+        run: |
+          echo "sdk.dir=$ANDROID_HOME" > local.properties
+          echo "ANDROID_HOME=$ANDROID_HOME"
 
       - name: Build FULL Debug APK
         run: |
